@@ -13,4 +13,7 @@
 #define PRESCALER_BITS_256	"110"
 #define PRESCALER_BITS_1024	"111"
 
-void CalculateTimer(int f_cpu, int timerBits, int freq);
+#define DEFAULT_F_CPU 16000000
+#define DEFAULT_TIMER_BITS 8
+
+void CalculateTimerFrequency(int f_cpu, int timerBits, float freq);

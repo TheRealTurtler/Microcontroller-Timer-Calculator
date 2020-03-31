@@ -1,6 +1,6 @@
 #include "TimerCalculator.h"
 
-void CalculateTimer(int f_cpu, int timerBits, int freq)
+void CalculateTimerFrequency(int f_cpu, int timerBits, float freq)
 {
 	char* prescaler;			// Timer prescaler
 	float compareVal;			// OCRnA compare value
@@ -9,9 +9,17 @@ void CalculateTimer(int f_cpu, int timerBits, int freq)
 	int OCRnA;
 	float realFrequency;
 
-	if (freq < MIN_FREQ)
+	float minFreq = f_cpu / 1024 / (pow(2, timerBits) - 1);
+
+	if (freq < minFreq)
 	{
-		printf("\nFrequenz zu klein, muss mindestens %f Hz sein\n", MIN_FREQ);
+		printf("Frequency too small, has to be at least %f Hz!\n", minFreq);
+		return;
+	}
+
+	if (freq > f_cpu)
+	{
+		printf("Frequency too big, has to be at most %d Hz!\n", f_cpu);
 		return;
 	}
 
@@ -66,5 +74,5 @@ void CalculateTimer(int f_cpu, int timerBits, int freq)
 
 	printf("Prescaler-Bits (CSn0 CSn1 CSn2): %s\n", prescaler);
 	printf("OCRnA Value: %d\n", OCRnA);
-	printf("Real frequency: %f\n", realFrequency);
+	printf("Real frequency: %f Hz\n", realFrequency);
 }
