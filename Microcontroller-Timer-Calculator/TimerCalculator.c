@@ -8,6 +8,7 @@ void CalculateTimerFrequency(int f_cpu, int timerBits, float freq)
 
 	int OCRnA;
 	float realFrequency;
+	float realCycleTime;
 
 	float minFreq = f_cpu / 1024 / (pow(2, timerBits) - 1);
 
@@ -71,8 +72,10 @@ void CalculateTimerFrequency(int f_cpu, int timerBits, float freq)
 
 	OCRnA = round(compareVal);
 	realFrequency = timerDivider / OCRnA;
+	realCycleTime = 1000 / realFrequency;
 
 	printf("Prescaler-Bits (CSn0 CSn1 CSn2): %s\n", prescaler);
 	printf("OCRnA Value: %d\n", OCRnA);
 	printf("Real frequency: %f Hz\n", realFrequency);
+	printf("Real cycle time: %f ms\n", realCycleTime);
 }
